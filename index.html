@@ -7,6 +7,11 @@
   <title>Microverse</title>
   <link id="microverse-css" rel="stylesheet" href="./assets/css/microverse.css" />
   <link href="./assets/fonts/css/all.css" rel="stylesheet">
+  <script type="module">
+    import RAPIER from 'https://cdn.skypack.dev/@dimforge/rapier3d-compat';
+    RAPIER.init();
+    window.RAPIERModule = RAPIER;
+  </script>
 <script defer src="lib/index.js"></script></head>
 
 <body class="no-select">

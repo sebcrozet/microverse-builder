@@ -33,13 +33,14 @@ class PendulumActor {
                     name,
                     color: this._cardData.color,
                     parent: this,
+                    pendulumHandlesEvent: true,
                     behaviorModules: ["Rapier", "PendulumLink"],
                     noSave: true,
                 });
             }
             card.call("Rapier$RapierActor", "createRigidBody", kinematic);
 
-            let s = [0.1, 1];
+            let s = [0.4, 1.8];
             s = [s[1] / 2, s[0]];
             let cd = Worldcore.RAPIER.ColliderDesc.cylinder(...s);
 
@@ -47,7 +48,7 @@ class PendulumActor {
             cd.setFriction(1);
 
             if (i === d - 1) {
-                cd.setDensity(10);
+                cd.setDensity(4.0); // 10);
             } else {
                 cd.setDensity(1.5);
             }
@@ -65,10 +66,10 @@ class PendulumActor {
                 noSave: true,
             });
             card.call(
-                "Rapier$RapierActor", "createImpulseJoint", "ball", this.links[i], this.links[i + 1],
+                "Rapier$RapierActor", "createImpulseJoint", "spherical", this.links[i], this.links[i + 1],
                 {x: 0, y: -1, z: 0}, {x: 0, y: 1, z: 0}
             );
-            // card.future(3000).destroy();
+            card.future(3000).destroy();
             return card;
         });
 
@@ -129,7 +130,7 @@ class PendulumLinkActor {
         if (!r) {return;}
 
         let jolt = Worldcore.v3_scale(p3d.normal, -40);
-        r.applyForce({x: jolt[0], y: jolt[1], z: jolt[2]}, true);
+        r.applyImpulse({x: jolt[0], y: jolt[1], z: jolt[2]}, true);
     }
 
     teardown() {

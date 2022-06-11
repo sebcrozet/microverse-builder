@@ -10,12 +10,12 @@ export function init(Constants) {
 
     Constants.SystemBehaviorDirectory = "behaviors/croquet";
     Constants.SystemBehaviorModules = [
-        "menu.js", "elected.js", "propertySheet.js", "stickyNote.js", "rapier.js", "avatarEvents.js", "pdfview.js"
+        "menu.js", "elected.js", "propertySheet.js", "stickyNote.js",  "avatarEvents.js", "pdfview.js"
     ];
 
     Constants.UserBehaviorDirectory = "behaviors/default";
     Constants.UserBehaviorModules = [
-        "demo.js", "lights.js", "bouncingBall.js", "bitcoinTracker.js", "spin.js", "pendulum.js", "openPortal.js"
+        "demo.js", "lights.js", "bouncingBall.js", "bitcoinTracker.js", "spin.js", "pendulum.js", "openPortal.js", "rapier.js", "rapierWorld.js"
     ];
 
     const frameColor = 0x888888;
@@ -265,9 +265,9 @@ width: 1.8,
         {
             card: {
                 name:"pendulum",
-                type: "object",
+                type: "3d",
                 translation: [-0.03701975732147922, 3.2368919013826734, 8.444841625884546],
-                behaviorModules: ["Rapier", "Pendulum"],
+                behaviorModules: ["RapierWorld", "Rapier", "Pendulum"],
                 layers: ["pointer"],
                 scale: [0.2, 0.2, 0.2],
                 color: 0xaa6666,
