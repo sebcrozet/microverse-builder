@@ -3,16 +3,18 @@ class PendulumActor {
         let d = 10;
         this.removeObjects();
         this.links = [...Array(d).keys()].map((i) => {
-            let kinematic;
+            let bodyDesc;
             if (i === 0) {
-                kinematic = Worldcore.RAPIER.RigidBodyDesc.newKinematicPositionBased();
+                bodyDesc = Worldcore.RAPIER.RigidBodyDesc.kinematicPositionBased();
             } else {
-                kinematic = Worldcore.RAPIER.RigidBodyDesc.newDynamic();
+                bodyDesc = Worldcore.RAPIER.RigidBodyDesc.dynamic();
             }
 
             let card;
             let translation = [0, 0 - i * 2, 0];
             let name = `link${i}`;
+            let cd;
+
             if (i === d - 1) {
                 card = this.createCard({
                     type: "3d",
@@ -26,6 +28,9 @@ class PendulumActor {
                     behaviorModules: ["Rapier", "PendulumLink"],
                     noSave: true,
                 });
+
+                card.call("Rapier$RapierActor", "createRigidBody", bodyDesc);
+                cd = Worldcore.RAPIER.ColliderDesc.ball(0.85);
             } else {
                 card = this.createCard({
                     type: "object",
@@ -37,12 +42,11 @@ class PendulumActor {
                     behaviorModules: ["Rapier", "PendulumLink"],
                     noSave: true,
                 });
-            }
-            card.call("Rapier$RapierActor", "createRigidBody", kinematic);
 
-            let s = [0.4, 1.8];
-            s = [s[1] / 2, s[0]];
-            let cd = Worldcore.RAPIER.ColliderDesc.cylinder(...s);
+                card.call("Rapier$RapierActor", "createRigidBody", bodyDesc);
+                cd = Worldcore.RAPIER.ColliderDesc.cylinder(0.9, 0.4);
+            }
+
 
             cd.setRestitution(0.5);
             cd.setFriction(1);
