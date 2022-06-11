@@ -115,7 +115,7 @@ class RapierActor {
         let world = physicsManager.world;
         let joint = world.getImpulseJoint(this.jointHandle);
         if (joint) {
-            // world.removeImpulseJoint(joint);
+            world.removeImpulseJoint(joint);
         }
         delete this.jointHandle;
     }

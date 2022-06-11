@@ -73,7 +73,6 @@ class PendulumActor {
                 "Rapier$RapierActor", "createImpulseJoint", "spherical", this.links[i], this.links[i + 1],
                 {x: 0, y: -1, z: 0}, {x: 0, y: 1, z: 0}
             );
-            card.future(3000).destroy();
             return card;
         });
 
